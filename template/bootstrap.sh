@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-apt-get update
-apt-get upgrade
+yes | apt-get update
+yes | apt-get upgrade
