@@ -4,7 +4,7 @@ apt-get update
 apt-get -y upgrade
 apt-get install -y \
     silversearcher-ag gdb docker.io docker-compose \
-    cmake g++ pkg-config zip unzip libjson-perl     # MySQL build and test dependencies
+    cmake g++ pkg-config zip unzip libjson-perl \   # MySQL build and test dependencies
     software-properties-common devscripts equivs    # MariaDB build dependencies
 
 # MariaDB
