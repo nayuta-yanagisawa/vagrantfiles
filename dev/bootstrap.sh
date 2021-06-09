@@ -2,8 +2,8 @@
 
 apt-get update
 apt-get -y upgrade
-apt-get install -y \
-    silversearcher-ag gdb docker.io docker-compose clang-format \
+apt-get -y install \
+    curl silversearcher-ag gdb clang-format \
     cmake g++ pkg-config zip unzip libjson-perl \   # MySQL build and test dependencies
     software-properties-common devscripts equivs    # MariaDB build dependencies
 
@@ -11,8 +11,12 @@ apt-get install -y \
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 add-apt-repository --update --yes --enable-source \
        'deb [arch=amd64] http://nyc2.mirrors.digitalocean.com/mariadb/repo/10.5/ubuntu '$(lsb_release -sc)' main'
-apt-get build-dep mariadb-10.5
+apt-get -y build-dep mariadb-10.5
 
 # Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+add-apt-repository --yes "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-get -y install docker-ce
+
 systemctl enable --now docker
 usermod -aG docker vagrant
