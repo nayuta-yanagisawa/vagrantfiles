@@ -6,19 +6,24 @@ unless Vagrant.has_plugin?("vagrant-disksize")
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.hostname = "dev"
-
   config.vm.box = "bento/ubuntu-20.04"
-  config.vm.provision :shell, path: "bootstrap.sh"
-
-  config.ssh.forward_agent = true
-  config.vm.network "forwarded_port", guest: 22, host: 20022, id: "ssh"
-
-  config.disksize.size = '256GB'
+  config.vm.hostname = "dev"
 
   config.vm.provider "virtualbox" do |v|
     v.name = "dev"
     v.cpus = 12
     v.memory = 10240
+  end
+  config.disksize.size = '256GB'
+
+  config.ssh.forward_agent = true
+  config.vm.network "forwarded_port", guest: 22, host: 20022, id: "ssh"
+
+  config.vm.provision "disk extension", type: "shell" do |shell|
+    shell.path = "disk-resize-ubuntu-20.04.sh"
+  end
+
+  config.vm.provision "real provisioning", type: "shell" do |shell|
+    shell.path = "bootstrap.sh"
   end
 end
