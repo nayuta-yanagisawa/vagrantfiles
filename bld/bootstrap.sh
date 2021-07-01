@@ -19,7 +19,7 @@ apt-get -y build-dep mariadb-10.5
 echo "Installing Docker Community Edition"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository --yes "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
-apt-get -y install docker-ce
+apt-get -y install docker-ce docker-compose
 
 systemctl enable --now docker
 usermod -aG docker vagrant
