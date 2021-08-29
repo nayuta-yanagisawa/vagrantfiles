@@ -7,21 +7,21 @@ end
 
 Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-20.04"
-  config.vm.hostname = "bld"
+  config.vm.define "pg"
+  config.vm.hostname = "pg"
 
   config.vm.provider "virtualbox" do |v|
-    v.name = "bld"
-    v.cpus = 20
-    v.memory = 24576
+    v.name = "pg"
+    v.cpus = 8
+    v.memory = 16384
   end
   config.disksize.size = '256GB'
 
   config.ssh.forward_agent = true
-  config.vm.network "forwarded_port", guest: 22, host: 30022, id: "ssh"
-  config.vm.network "public_network"
+  config.vm.network "forwarded_port", guest: 22, host: 10022, id: "ssh"
 
   config.vm.provision "disk extension", type: "shell" do |shell|
-    shell.path = "disk-resize-ubuntu-20.04.sh"
+    shell.path = "../disk-resize-ubuntu-20.04.sh"
   end
 
   config.vm.provision "real provisioning", type: "shell" do |shell|
